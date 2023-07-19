@@ -9,12 +9,20 @@ app.use(cors());
 app.use(express.json());
 app.use(bodyparser.urlencoded({ extended: true }));
 
-const db = mySql.createPool({
+const db = mySql.createConnection({
   host: "localhost",
   password: "Admin@123",
   user: "root",
   database: "contactapi",
 });
+
+db.connect((err)=>{
+  if (err) {
+    console.log("Connection failed");
+  } else {
+    console.log("Connection Successful");
+  }
+})
 
 app.get("/getContact", (req, res) => {
   const getContact = "SELECT * FROM contactapi.api";
